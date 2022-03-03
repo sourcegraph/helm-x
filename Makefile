@@ -41,14 +41,18 @@ build:
 .PHONY: dist
 dist:
 	mkdir -p $(DIST)
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o $(BINARY_NAME) -ldflags $(LDFLAGS) ./main.go
-	tar -zcvf $(DIST)/$(PLUGIN_NAME)-linux-$(VERSION).tgz $(BINARY_NAME) README.md LICENSE.txt plugin.yaml
-	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o $(BINARY_NAME) -ldflags $(LDFLAGS) ./main.go
-	tar -zcvf $(DIST)/$(PLUGIN_NAME)-macos-$(VERSION).tgz $(BINARY_NAME) README.md LICENSE.txt plugin.yaml
-	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o $(BINARY_NAME).exe -ldflags $(LDFLAGS) ./main.go
-	tar -zcvf $(DIST)/$(PLUGIN_NAME)-windows-$(VERSION).tgz $(BINARY_NAME).exe README.md LICENSE.txt plugin.yaml
-	rm inj
-	rm inj.exe
+
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o $(BINARY_NAME) -ldflags $(LDFLAGS) ./
+	tar -zcvf $(DIST)/$(PLUGIN_NAME)-linux-amd64-amd64-$(VERSION).tgz $(BINARY_NAME) README.md LICENSE.txt plugin.yaml
+
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o $(BINARY_NAME) -ldflags $(LDFLAGS) ./
+	tar -zcvf $(DIST)/$(PLUGIN_NAME)-linux-amd64-arm64-$(VERSION).tgz $(BINARY_NAME) README.md LICENSE.txt plugin.yaml
+
+	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o $(BINARY_NAME) -ldflags $(LDFLAGS) .
+	tar -zcvf $(DIST)/$(PLUGIN_NAME)-macos-amd64-$(VERSION).tgz $(BINARY_NAME) README.md LICENSE.txt plugin.yaml
+
+	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o $(BINARY_NAME) -ldflags $(LDFLAGS) .
+	tar -zcvf $(DIST)/$(PLUGIN_NAME)-macos-arm64-$(VERSION).tgz $(BINARY_NAME) README.md LICENSE.txt plugin.yaml
 
 release/minor:
 	git fetch origin master
