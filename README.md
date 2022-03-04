@@ -219,7 +219,7 @@ Flags:
 ## Install
 
 ```
-$ helm plugin install https://github.com/mumoshu/helm-x
+$ helm plugin install https://github.com/sourcegraph/helm-x
 ```
 
 The above will fetch the latest binary release of `helm-x` and install it.
@@ -235,7 +235,7 @@ First, set up your environment:
 Clone this repo anywhere OUSTSIDE of your `$GOPATH`:
 
 ```
-$ git clone git@github.com:mumoshu/helm-x
+$ git clone git@github.com:sourcegraph/helm-x
 $ make install
 ```
 
